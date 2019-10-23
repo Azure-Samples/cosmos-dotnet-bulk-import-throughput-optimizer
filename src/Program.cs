@@ -69,11 +69,11 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                 }
                 // </Operations>
 
-                Container container = database.GetContainer(ContainerName);
                 // Create the list of Tasks
                 Console.WriteLine($"Starting...");
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 // <ConcurrentTasks>
+                Container container = database.GetContainer(ContainerName);
                 List<Task> tasks = new List<Task>(ItemsToInsert);
                 foreach (KeyValuePair<PartitionKey, Stream> item in itemsToInsert)
                 {
