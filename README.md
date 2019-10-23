@@ -3,51 +3,49 @@ page_type: sample
 languages:
 - csharp
 products:
+- azure
+- cosmos-db
 - dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+description: "This sample shows you how to optimize throughput when importing data to Azure Cosmos DB through the SQL API using bulk support on .NET SDK"
 ---
 
-# Official Microsoft Sample
+# Optimize throughput when bulk importing data to Azure Cosmos DB SQL API account
 
-<!-- 
-Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
+This sample shows you how to optimize throughput when importing data to Azure Cosmos DB through the SQL API using bulk support on .NET SDK.
 
-Guidance on onboarding samples to docs.microsoft.com/samples: https://review.docs.microsoft.com/help/onboard/admin/samples/process/onboarding?branch=master
+For a complete end-to-end walkthrough, please refer to the [full tutorial on the Azure Cosmos DB documentation page](https://aka.ms/CosmosDotnetBulkSupport).
 
-Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
--->
+## Running this sample
 
-Give a short description for your sample here. What does it do and why is it important?
+1. Before you can run this sample, you must have the following prerequisites:
+	- An active Azure Cosmos DB account - If you don't have an account, refer to the [Create a database account](https://docs.microsoft.com/azure/cosmos-db/create-sql-api-dotnet#create-a-database-account) article. Optionally, you can use the [Azure Cosmos DB Emulator](https://docs.microsoft.com/azure/cosmos-db/local-emulator).
+	- [NET Core SDK 3+](https://dotnet.microsoft.com/download).
 
-## Contents
+1. Clone this repository, or download the zip file.
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
+1. Browse to the `src` folder.
 
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+1. Run `dotnet build` to restore all packages.
 
-## Prerequisites
+1. Retrieve the URI and PRIMARY KEY (or SECONDARY KEY) values from the Keys blade of your Azure Cosmos DB account in the Azure portal. For more information on obtaining endpoint & keys for your Azure Cosmos DB account refer to [View, copy, and regenerate access keys and passwords](https://docs.microsoft.com/en-us/azure/cosmos-db/manage-account#keys). If you are using the Emulator, you can also use [its credentials](https://docs.microsoft.com/azure/cosmos-db/local-emulator#authenticating-requests).
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+If you don't have an account, see [Create a database account](https://docs.microsoft.com/azure/cosmos-db/create-sql-api-dotnet#create-a-database-account) to set one up.
 
-## Setup
+1. In the [Program.cs](.\src\Program.cs) file, located in the `src` directory, find **EndPointUri** and **AuthorizationKey** and replace the placeholder values with the values obtained for your account.
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
+    private const string EndpointUrl = "https://<your-account>.documents.azure.com:443/";
+    private const string AuthorizationKey = "<your-account-key>";
 
-## Runnning the sample
+1. You can now run the application with `dotnet run`.
 
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+## About the code
+The code included in this sample is intended to show you how to leverage the bulk support to optimize throughput when you import data to Azure Cosmos DB.
 
-## Key concepts
+## More information
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+- [Azure Cosmos DB Documentation](https://docs.microsoft.com/azure/cosmos-db/index)
+- [Azure Cosmos DB .NET SDK for SQL API](https://docs.microsoft.com/azure/cosmos-db/sql-api-sdk-dotnet)
+- [Azure Cosmos DB .NET SDK Reference Documentation](https://docs.microsoft.com/dotnet/api/overview/azure/cosmosdb?view=azure-dotnet)
 
 ## Contributing
 
