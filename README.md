@@ -29,14 +29,15 @@ For a complete end-to-end walkthrough, please refer to the [full tutorial on the
 
 1. Retrieve the URI and PRIMARY KEY (or SECONDARY KEY) values from the Keys blade of your Azure Cosmos DB account in the Azure portal. For more information on obtaining endpoint & keys for your Azure Cosmos DB account refer to [View, copy, and regenerate access keys and passwords](https://docs.microsoft.com/en-us/azure/cosmos-db/manage-account#keys). If you are using the Emulator, you can also use [its credentials](https://docs.microsoft.com/azure/cosmos-db/local-emulator#authenticating-requests).
 
-If you don't have an account, see [Create a database account](https://docs.microsoft.com/azure/cosmos-db/create-sql-api-dotnet#create-a-database-account) to set one up.
-
 1. In the [Program.cs](.\src\Program.cs) file, located in the `src` directory, find **EndPointUri** and **AuthorizationKey** and replace the placeholder values with the values obtained for your account.
 
+```csharp
     private const string EndpointUrl = "https://<your-account>.documents.azure.com:443/";
-    private const string AuthorizationKey = "<your-account-key>";
 
-1. You can now run the application with `dotnet run`.
+    private const string AuthorizationKey = "<your-account-key>";
+```
+
+7. You can now run the application with `dotnet run`.
 
 ## About the code
 The code included in this sample is intended to show you how to leverage the bulk support to optimize throughput when you import data to Azure Cosmos DB.
