@@ -4,7 +4,7 @@ languages:
 - csharp
 products:
 - azure
-- cosmos-db
+- azure-cosmos-db
 - dotnet
 description: "This sample shows you how to optimize throughput when importing data to Azure Cosmos DB through the SQL API using bulk support on .NET SDK"
 ---
