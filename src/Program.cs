@@ -27,6 +27,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
         private const string DatabaseName = "bulk-tutorial";
         private const string ContainerName = "items";
         private const int ItemsToInsert = 300000;
+        private const int Throughput = 50000;
 
         static async Task Main(string[] args)
         {
@@ -34,9 +35,9 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
             CosmosClient cosmosClient = new CosmosClient(EndpointUrl, AuthorizationKey, new CosmosClientOptions() { AllowBulkExecution = true });
             // </CreateClient>
 
-            // Create with a throughput of 50000 RU/s
+            // Create a database and a container with the configured amount of RU/s
             // Indexing Policy to exclude all attributes to maximize RU/s usage
-            Console.WriteLine("This tutorial will create a 50000 RU/s container, press any key to continue.");
+            Console.WriteLine($"This tutorial will create a {Throughput} RU/s container, press any key to continue.");
             Console.ReadKey();
 
             // <Initialize>
@@ -51,7 +52,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                             .Path("/*")
                             .Attach()
                     .Attach()
-                .CreateAsync(50000);
+                .CreateAsync(Program.Throughput);
             
             // </Initialize>
 
