@@ -84,7 +84,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                             {
                                 if (!response.IsSuccessStatusCode)
                                 {
-                                    Console.WriteLine($"Received {response.StatusCode} ({response.ErrorMessage}) status code for operation {response.RequestMessage.RequestUri.ToString()}.");
+                                    Console.WriteLine($"Received {response.StatusCode} ({response.ErrorMessage}).");
                                 }
                             }
                         }));
