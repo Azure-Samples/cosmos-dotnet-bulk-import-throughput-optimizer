@@ -1,7 +1,8 @@
 ﻿// ------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // ------------------------------------------------------------
-
+//Can I do this using azure activity functions... 
+//I have tried but it's failing, I am helpless right now... 
 namespace Microsoft.Azure.Cosmos.Samples.Bulk
 {
     using System;
