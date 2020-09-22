@@ -22,8 +22,8 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
     // ----------------------------------------------------------------------------------------------------------
     public class Program
     {
-        private const string EndpointUrl = "https://<your-account>.documents.azure.com:443/";
-        private const string AuthorizationKey = "<your-account-key>";
+        private const string EndpointUrl = "https://scaledemo1.documents.azure.com:443/";
+        private const string AuthorizationKey = "QEJPjfrDB9nNrx4HoAHB3dA54BuxPqBXQIlc9n8KK2SZnsdwd5gbCvf5tz74zKKCJPpAlGLFX1jp0Bl5RpxyfQ==";
         private const string DatabaseName = "bulk-tutorial";
         private const string ContainerName = "items";
         private const int ItemsToInsert = 300000;
@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
             // Create with a throughput of 50000 RU/s
             // Indexing Policy to exclude all attributes to maximize RU/s usage
             Console.WriteLine("This tutorial will create a 50000 RU/s container, press any key to continue.");
-            Console.ReadKey();
+            //Console.ReadKey();
 
             // <Initialize>
             Database database = await cosmosClient.CreateDatabaseIfNotExistsAsync(Program.DatabaseName);
