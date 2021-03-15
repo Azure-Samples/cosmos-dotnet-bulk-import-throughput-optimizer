@@ -80,6 +80,10 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                                 {
                                     Console.WriteLine($"Received {cosmosException.StatusCode} ({cosmosException.Message}).");
                                 }
+                                else
+                                {
+                                    Console.WriteLine($"Exception {innerExceptions.InnerExceptions.FirstOrDefault()}.");
+                                }
                             }
                         }));
                 }
