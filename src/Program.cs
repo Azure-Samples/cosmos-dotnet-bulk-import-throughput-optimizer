@@ -7,8 +7,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
-    using System.Text.Json;
+    using System.Linq;
     using System.Threading.Tasks;
 
     // ----------------------------------------------------------------------------------------------------------
@@ -60,13 +59,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                 // Prepare items for insertion
                 Console.WriteLine($"Preparing {ItemsToInsert} items to insert...");
                 // <Operations>
-                Dictionary<PartitionKey, Stream> itemsToInsert = new Dictionary<PartitionKey, Stream>(ItemsToInsert);
-                foreach (Item item in Program.GetItemsToInsert())
-                {
-                    MemoryStream stream = new MemoryStream();
-                    await JsonSerializer.SerializeAsync(stream, item);
-                    itemsToInsert.Add(new PartitionKey(item.pk), stream);
-                }
+                IReadOnlyCollection<Item> itemsToInsert = Program.GetItemsToInsert();
                 // </Operations>
 
                 // Create the list of Tasks
@@ -75,16 +68,17 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                 // <ConcurrentTasks>
                 Container container = database.GetContainer(ContainerName);
                 List<Task> tasks = new List<Task>(ItemsToInsert);
-                foreach (KeyValuePair<PartitionKey, Stream> item in itemsToInsert)
+                foreach (Item item in itemsToInsert)
                 {
-                    tasks.Add(container.CreateItemStreamAsync(item.Value, item.Key)
-                        .ContinueWith((Task<ResponseMessage> task) =>
+                    tasks.Add(container.CreateItemAsync(item, new PartitionKey(item.pk))
+                        .ContinueWith(itemResponse =>
                         {
-                            using (ResponseMessage response = task.Result)
+                            if (!itemResponse.IsCompletedSuccessfully)
                             {
-                                if (!response.IsSuccessStatusCode)
+                                AggregateException innerExceptions = itemResponse.Exception.Flatten();
+                                if (innerExceptions.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
                                 {
-                                    Console.WriteLine($"Received {response.StatusCode} ({response.ErrorMessage}).");
+                                    Console.WriteLine($"Received {cosmosException.StatusCode} ({cosmosException.Message}).");
                                 }
                             }
                         }));
