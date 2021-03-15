@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
         private const string AuthorizationKey = "<your-account-key>";
         private const string DatabaseName = "bulk-tutorial";
         private const string ContainerName = "items";
-        private const int ItemsToInsert = 300000;
+        private const int AmountToInsert = 300000;
 
         static async Task Main(string[] args)
         {
@@ -57,7 +57,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
             try
             {
                 // Prepare items for insertion
-                Console.WriteLine($"Preparing {ItemsToInsert} items to insert...");
+                Console.WriteLine($"Preparing {AmountToInsert} items to insert...");
                 // <Operations>
                 IReadOnlyCollection<Item> itemsToInsert = Program.GetItemsToInsert();
                 // </Operations>
@@ -67,7 +67,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 // <ConcurrentTasks>
                 Container container = database.GetContainer(ContainerName);
-                List<Task> tasks = new List<Task>(ItemsToInsert);
+                List<Task> tasks = new List<Task>(AmountToInsert);
                 foreach (Item item in itemsToInsert)
                 {
                     tasks.Add(container.CreateItemAsync(item, new PartitionKey(item.pk))
@@ -89,7 +89,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
                 // </ConcurrentTasks>
                 stopwatch.Stop();
 
-                Console.WriteLine($"Finished in writing {ItemsToInsert} items in {stopwatch.Elapsed}.");
+                Console.WriteLine($"Finished in writing {AmountToInsert} items in {stopwatch.Elapsed}.");
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace Microsoft.Azure.Cosmos.Samples.Bulk
             .RuleFor(o => o.id, f => Guid.NewGuid().ToString()) //id
             .RuleFor(o => o.username, f => f.Internet.UserName())
             .RuleFor(o => o.pk, (f, o) => o.id) //partitionkey
-            .Generate(ItemsToInsert);
+            .Generate(AmountToInsert);
         }
         // </Bogus>
 
